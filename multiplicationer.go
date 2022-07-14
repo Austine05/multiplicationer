@@ -2,7 +2,7 @@ package multiplicationer
 
 import (
 	"log"
-	// "os"
+	"os"
 )
 
 func Logg(LogAnswer bool) {
