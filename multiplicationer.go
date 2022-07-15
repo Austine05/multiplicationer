@@ -5,18 +5,26 @@ import (
 	"os"
 )
 
-func Logg(LogAnswer bool) {
-	if LogAnswer {
-		file, err := os.OpenFile("logs.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+type Multiplyer struct {
+	LogAnswer bool
+}
+
+func NewMultiplyer(mul bool) *Multiplyer {
+	m := Multiplyer{mul}
+	if mul {
+		file, err := os.OpenFile("logResult.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
 		if err != nil {
 			log.Println(err)
 		}
 		log.SetOutput(file)
 	}
+	return &m
 }
 
-func Multiply(firstValue, secondValue float64) float64 {
+func (m *Multiplyer) Multiply(firstValue, secondValue float64) float64 {
 	result := firstValue * secondValue
-	log.Println("Your answer is", result)
+	if m.LogAnswer {
+		log.Println("Your answer is", result)
+	}
 	return result
 }
